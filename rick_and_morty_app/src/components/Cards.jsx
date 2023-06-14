@@ -2,11 +2,14 @@ import Card from './Card';
 
 export default function Cards(props) {
    const character = props.characters
+   const onClose = props.onClose 
+
    return <div>
-      {character.map(character => {
+      {  character?.map((character,index) => {
          return <Card
-         char={character}
-          onClose={() => window.alert('Emulamos que se cierra la card')}
+          key = {character.id}
+          char={character}
+          onClose={onClose}
          />
       })}
       
