@@ -1,5 +1,19 @@
 import React from 'react'
 import SearchBar from './SearchBar.jsx';
+import styles from "./button.module.css"
+import styled from 'styled-components'
+
+const BarContainer = styled.div`
+background-color: #313a5f;
+display: flex;
+justify-content: space-evenly;
+
+
+`
+
+
+
+
 
 export default function NavBar(props) {
   const {onSearch} = props
@@ -12,9 +26,9 @@ export default function NavBar(props) {
 
 
   return (
-    <div className='NavBar'> 
-    <button onClick={addRandomChar}>Random</button>
+    <BarContainer> 
+    <button className={styles.button} onClick={addRandomChar}>Random</button>
     <SearchBar onSearch = {onSearch} ></SearchBar>
-    </div>
+    </BarContainer>
   )
 }

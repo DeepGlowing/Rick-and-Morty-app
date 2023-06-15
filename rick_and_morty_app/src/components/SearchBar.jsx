@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import styles from "./button.module.css" // Importo modulo de estilo para botones
 
 export default function SearchBar(props) {
    const {onSearch} = props
@@ -28,11 +28,11 @@ export default function SearchBar(props) {
 
          <input type="search" 
           onChange={handleChange}
-          placeholder="Buscar PJ"
+          placeholder="Buscar Personaje"
           value={id}
          ></input>
 
-         <button onClick={addChar}>Agregar</button>
+         <button className={styles.button} onClick={addChar}>Agregar</button>
       </div>
    );
 }

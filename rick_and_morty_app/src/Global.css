@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@100;400;900&display=swap');
+
+
+:root {
+    --primary-color: #235455
+
+}
+
+body {
+    font-family: 'Yantramanav', sans-serif;
+    background-color: rgb(215, 246, 250);
+}
