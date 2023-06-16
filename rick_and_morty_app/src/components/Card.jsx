@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import { Link } from 'react-router-dom';
 
 const CharCard = styled.div`
 background-color: #5630dd;
@@ -40,13 +40,16 @@ border-top-right-radius: 6px;
 `
 
 export default function Card({char,onClose}) {
-   const {id,name,gender,species,origin,image,status} = char
+   const {id,name,image} = char
 
    return (
       <CharCard>
          <CloseCardBut onClick={() => onClose(id)}>X</CloseCardBut>
          <ImgCard src={image} alt={name} />
-         <CharName>{name}</CharName>
+         <Link to={"/detail/"+id}>
+            <CharName>{name}</CharName>
+         </Link>
+         
 {/*          <h2>{status}</h2>
          <h2>{species}</h2>
          <h2>{gender}</h2>
