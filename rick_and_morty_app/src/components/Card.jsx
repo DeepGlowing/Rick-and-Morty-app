@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { addFav,removeFav } from '../redux/actions';
+import { connect } from 'react-redux';
 
 const CharCard = styled.div`
 background-color: #5630dd;
@@ -39,11 +42,35 @@ border-top-right-radius: 6px;
 
 `
 
-export default function Card({char,onClose}) {
+function Card({char,onClose,addFav,removeFav,myFavorites}) {
    const {id,name,image} = char
+   const [isFav,setIsFav] = useState(false)
 
+   useEffect(() => {                     // Verifica si el personaje de la carta se encuentra entre los favoritos
+      myFavorites.forEach((fav) => {     // Si es asi, seatea el estado local isFav en true. al hacerlo, aparecera con el corazon rojo.
+         if (fav.id === id) {
+            setIsFav(true);
+         }
+      });
+   }, [myFavorites]);
+
+   function handleFavorite(){
+      
+      if(isFav){ setIsFav(false); removeFav(id) } // Si la carta esta en favoritos, cambia su estado local "isFav" a false y se elimina del store mediante su id
+      else {setIsFav(true); addFav(char)}         // Si la carta no esta en favoritos, cambia su estado local "isFav" a true y se añade del store pasando toda la informacion del personaje
+   }
+
+
+   console.log(myFavorites)
    return (
       <CharCard>
+            {
+               isFav ? (
+                  <button onClick={handleFavorite}>❤️</button>
+               ) : (
+                  <button onClick={handleFavorite}>🤍</button>
+               )
+            }
          <CloseCardBut onClick={() => onClose(id)}>X</CloseCardBut>
          <ImgCard src={image} alt={name} />
          <Link to={"/detail/"+id}>
@@ -58,3 +85,12 @@ export default function Card({char,onClose}) {
       </CharCard>
    );
 }
+
+
+function mapState(state) {
+   return {
+      myFavorites: state.myFavorites,
+   };
+ }
+
+export default connect(mapState,{addFav,removeFav})(Card)

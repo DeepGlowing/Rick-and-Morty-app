@@ -5,6 +5,7 @@ import Nav from './components/Nav.jsx';
 import axios from 'axios';
 
 import { Routes, Route, useLocation,useNavigate} from 'react-router-dom';
+import FavCards from './components/Views/View_Favorites';
 import Details from './components/Views/View_Details';
 import Login from './components/Views/View_Login';
 
@@ -17,11 +18,11 @@ function App() {
    const [access, setAccess] = useState(false)
    const { pathname } = useLocation()
    const [characters, setCharacters] = useState([])   //Crea variable de estado "characters" con su set y la inicializa como array vacio
-   const EMAIL = 'ejemplo@gmail.com'
-   const PASSWORD = 'unaPassword'
+   const EMAIL = 'my@gmail.com'
+   const PASSWORD = '123_Hh'
    
 
-   useEffect(() => {!access && navigate('/');}, [access]); // Setea la app en la vista de login si access es falso
+   useEffect(() => {!access && navigate('/home');}, [access]); // Setea la app en la vista de login si access es falso
 
    function login(userData) {
       if (userData.password === PASSWORD && userData.email === EMAIL) {
@@ -44,7 +45,7 @@ function App() {
          axios(`https://rickandmortyapi.com/api/character/${idVal}`).then(({ data }) => {
             if (data.name) {
 
-               setCharacters((oldChars) => [...oldChars, data]);
+               setCharacters((oldChars) => [ data, ...oldChars]);
             } else {
                window.alert('¡No hay personajes con este ID!');
             }
@@ -68,9 +69,15 @@ function App() {
             <Route path='/home' element={<Cards characters={characters} onClose={onClose}/>}></Route>
             <Route path='/' element={<div><Login onLogin={login}></Login></div>}></Route>
             <Route path='/about' element={<div><h1>{">>>>>>>> ABOUT <<<<<<<<"}</h1></div>}></Route>
+            <Route path='/favorites' element={<FavCards></FavCards>}></Route>
             <Route path='/detail/:id' element={<div><Details></Details></div>}></Route>
          </Routes>
-          {pathname !== '/home' && pathname !== '/' && pathname !== '/about' && pathname !== '/detail/:id' ? <div><h1> 404 not found </h1></div> : null }
+          {pathname !== '/home' && 
+          pathname !== '/' && 
+          pathname !== '/about' && 
+          pathname !== '/detail/:id' &&
+          pathname !== '/favorites' ? 
+          <div><h1> 404 not found </h1></div> : null }
          
       </div>
 

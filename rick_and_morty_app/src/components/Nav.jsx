@@ -27,6 +27,7 @@ export default function NavBar(props) {
     <BarContainer> 
       <Link to={"/about"} className={styles.button}>About</Link>
       <Link to={"/home"} className={styles.button}>Home</Link>
+      <Link to={"/favorites"} className={styles.button}>Favorites</Link>
       <button className={styles.button} onClick={addRandomChar}>Random</button>
       <SearchBar onSearch = {onSearch} ></SearchBar>
     </BarContainer>
